@@ -7,6 +7,13 @@ html, body {
 * {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: #fff;
+    letter-spacing: 1px;
+}
+
+body {
+    background-color: #181818;
+    font-size: 14px;
+    min-width: 720px; 
 }
 
 
@@ -208,4 +215,158 @@ html, body {
     right: 0;
     top: 6px;
     width: 25px;
+}
+
+/* Index page Center Container STYLES ------------------------------------------------------*/
+
+#mainViewContainer {
+    margin-left: 220px;
+    padding-bottom: 90px;
+    width: calc(100% - 220px);
+
+}
+
+#mainContent {
+    padding: 0 20px;
+}
+
+.pageHeadingBig {
+    padding: 20px;
+    text-align: center;
+}
+
+.gridViewItem {
+    display: inline-block;
+    margin-right: 20px;
+    width: 29%;
+    max-width: 200px;
+    min-width: 150px;
+    margin-bottom: 20px;
+}
+
+.gridViewItem img {
+    width: 100%;
+}
+
+.gridViewItem a {
+    text-decoration: none;
+}
+
+.gridViewInfo {
+    font-weight: 300;
+    text-align: center;
+    padding: 5px 0;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+/* Album page Main STYLES ------------------------------------------------------*/
+
+.entityInfo {
+    padding: 40px 0 10px 0;
+    display: inline-block;
+    width: 100%;
+}
+
+.entityInfo .leftSection {
+    width: 30%;
+    float: left;
+    max-width: 250px;
+}
+
+.leftSection img {
+    width: 100%;
+}
+
+.entityInfo .rightSection {
+    width: 70%;
+    float: left;
+    padding: 5px 10px 5px 40px;
+    box-sizing: border-box;
+}
+
+.entityInfo .rightSection h2 {
+    margin-top: 0px;
+}
+
+.entityInfo .rightSection p {
+    color: #939393;
+    font-weight: 200;
+}
+
+/* Album page Song List STYLES ------------------------------------------------------*/
+
+.tracklist {
+    padding: 0;
+}
+
+.tracklistRow {
+    height: 40px;
+    padding: 15px 10px;
+    list-style: none;
+}
+.tracklistRow .trackInfo span {
+    color: #939393;
+    font-weight: 200;
+    display: block;
+}
+
+.tracklistRow .trackInfo .trackName {
+    color: #fff;
+    margin-bottom: 7px;
+}
+
+
+.tracklistRow:hover {
+    background-color: #282828;
+}
+
+.tracklistRow .trackCount {
+    width: 8%;
+    float: left;
+}
+
+.tracklistRow .trackCount img {
+    width: 20px;
+    visibility: hidden;
+    position: absolute;
+    cursor: pointer;
+}
+
+.tracklistRow:hover .trackCount img {
+    visibility: visible;
+}
+
+.tracklistRow .trackCount span {
+    visibility: visible;
+}
+
+.tracklistRow:hover .trackCount span {
+    visibility: hidden;
+}
+
+.tracklistRow .trackInfo {
+    width: 75%;
+    float: left;
+}
+
+.tracklistRow .trackOptions {
+    width: 5%;
+    float: left;
+    text-align: right;
+}
+
+.tracklistRow .trackOptions .optionsButton {
+    width: 15%;
+    visibility: hidden;
+}
+.tracklistRow:hover .trackOptions .optionsButton {
+    visibility: visible;
+}
+
+.tracklistRow .trackDuration {
+    width: 12%;
+    float: left;
+    text-align: right;
 }

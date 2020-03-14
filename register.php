@@ -81,7 +81,7 @@ function getInputValue($name) {
                 <p>
                     <?php echo $account->getError(Constants::$firstNameCharacters); ?>
                     <label for="firstName">First Name:</label>
-                    <input id="firstName" name="firstName" type="text" placeholder="Bart" required>
+                    <input id="firstName" name="firstName" type="text" placeholder="Bart" value="<?php getInputValue('firstName'); ?>" required>
                 </p> 
                 <p>
                     <?php echo $account->getError(Constants::$lastNameCharacters); ?>

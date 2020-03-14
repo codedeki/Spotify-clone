@@ -5,8 +5,8 @@ class Account {
     private $errorArray, $con;
 
     public function __construct($con) {
-        $this->errorArray = array();
         $this->con = $con;
+        $this->errorArray = array();
     }
 
     public function login($un, $pw) {
