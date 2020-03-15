@@ -1,17 +1,116 @@
+<?php 
+
+$songQuery = mysqli_query($con, "SELECT id FROM songs ORDER BY RAND() LIMIT 10");
+
+$resultArray = array();
+
+while ($row = mysqli_fetch_array($songQuery)) {
+    array_push($resultArray, $row['id']);
+}
+
+$jsonArray = json_encode($resultArray); //conver php arary to json
+
+?>
+
+<script>
+
+$(document).ready(function() {
+    currentPlaylist = <?php echo $jsonArray; ?>;
+    audioElement = new Audio();
+    setTrack(currentPlaylist[0], currentPlaylist, false);
+    
+    $(".playbackBar .progressBar").mousedown(function() {
+        mouseDown = true;
+         });
+
+    $(".playbackBar .progressBar").mousemove(function(e) {
+        if (mouseDown) {
+            //set time of song based on position of bar
+            //this is object that called the event(i.e. .playbackBar .progressBar html elements)
+            timeFromOffset(e, this); 
+        }
+        });
+
+    $(".playbackBar .progressBar").mouseup(function(e) {
+            timeFromOffset(e, this); 
+        });
+
+    $(document).mouseup(function() {
+        mouseDown = false;
+    })
+});
+
+function timeFromOffset(mouse, progressBar) {
+    var percentage = mouse.offsetX / $(progressBar).width() * 100;
+    var seconds = audioElement.audio.duration * (percentage / 100);
+    audioElement.setTime(seconds);
+}
+
+function setTrack(trackId, newPlaylist, play) {
+
+    $.post("includes/handlers/ajax/getSongJSON.php", { songId: trackId }, function(data) {
+        var track = JSON.parse(data);
+
+        $(".trackName span").text(track.title);
+
+        $.post("includes/handlers/ajax/getArtistJSON.php", { artistId: track.artist }, function(data) {
+            var artist = JSON.parse(data);
+            console.log(artist);
+            $(".artistName span").text(artist.name);
+        });
+        
+        $.post("includes/handlers/ajax/getAlbumJSON.php", { albumId: track.album }, function(data) {
+            var album = JSON.parse(data);
+            console.log(album);
+            $(".albumLink img").attr("src",album.artworkPath);
+        });
+
+        audioElement.setTrack(track);
+        playSong();
+    });
+
+    if (play == true) {
+       audioElement.play();
+    }
+}
+
+function playSong() {
+
+    if (audioElement.audio.currentTime == 0) {
+        $.post("includes/handlers/ajax/updatePlays.php", { songId: audioElement.currentlyPlaying.id });
+
+    } else {
+        console.log("DON'T UPDATE TIME")
+    }
+
+    $(".controlButton.play").hide();
+    $(".controlButton.pause").show();
+    audioElement.play();
+}
+
+function pauseSong() {
+    $(".controlButton.play").show();
+    $(".controlButton.pause").hide();
+    audioElement.pause();
+}
+
+</script>
+
+
 <div id="nowPlayingBarContainer">
     <div id="nowPlayingBar">
         <div id="nowPlayingLeft">
             <div class="content">
                 <span class="albumLink">
-                    <img src="assets/images/bg.jpg" class="albumArtwork" alt="Album">
+                    <img src="" class="albumArtwork" alt="Album">
                 </span>
 
                 <div class="trackInfo">
                     <span class="trackName">
-                        <span>Happy Birthday</span>
+                        <span></span>
                     </span>
                     <span class="artistName">
-                        <span>Michael Moore</span>
+                        <span></span>
                     </span>
                 </div>
             </div>
@@ -26,10 +125,10 @@
                     <button class="controlButton previous" title="Previous button">
                         <img src="assets/images/icons/previous.png" alt="Previous">
                     </button>
-                    <button class="controlButton play" title="Play button">
+                    <button class="controlButton play" title="Play button" onclick="playSong()">
                         <img src="assets/images/icons/play.png" alt="Play">
                     </button>
-                    <button class="controlButton pause" title="Pause button" style="display: none">
+                    <button class="controlButton pause" title="Pause button" style="display: none" onclick="pauseSong()">
                         <img src="assets/images/icons/pause.png" alt="Pause">
                     </button>
                     <button class="controlButton next" title="Next button">
