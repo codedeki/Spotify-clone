@@ -7,8 +7,13 @@ var currentIndex = 0;
 var repeat = false;
 var shuffle = false;
 var userLoggedIn;
+var timer; //for search.php 
 
 function openPage(url) {
+	//if user jumps to another page before serch is complete, stop the search settimeout timer
+	if (timer != null) {
+		clearTimeout(timer);
+	}
 	//add question mark to url if doesn't have one to make sure we change pages dynamically
 	if (url.indexOf("?") == -1) {
 		url = url + "?";
