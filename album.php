@@ -1,4 +1,5 @@
-<?php include("includes/header.php");  
+<?php include("includes/includedFiles.php"); 
+//store header & footer in includedFiles so that we don't load them more than once on every page change 
 
 if (isset($_GET['id'])) {
     $albumId = $_GET['id'];
@@ -70,7 +71,3 @@ $artist = $album->getArtist();
 
     </ul>
 </div>
-
-
-
-<?php include("includes/footer.php"); ?>

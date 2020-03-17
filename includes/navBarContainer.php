@@ -1,24 +1,27 @@
 <div id="navBarContainer">
     <nav class="navBar">
-        <a href="index.php" class="logo">
-            <img src="assets/images/icons/logo.png" alt="">
-        </a>
+        <span role="link" tabindex="0" onclick="openPage('index.php')" class="logo">
+            <img src="assets/images/icons/logo.png" alt="logo">
+        </span>
 
         <div class="group">
             <div class="navItem">
-                <a href="search.php" class="navItemLink">Search <img src="assets/images/icons/search.png" alt="Search" class="icon"></a>
+                <!-- USE THIS as model to create links that dynamically load -->
+                <span role='link' tabindex='0' onclick="openPage('search.php')" class="navItemLink">Search 
+                    <img src="assets/images/icons/search.png" alt="Search" class="icon">
+                </span>
             </div>
         </div>
             
             <div class="group">
                 <div class="navItem">
-                    <a href="browse.php" class="navItemLink">Browse</a>
+                    <span role="link" tabindex="0" onclick="openPage('browse.php')" class="navItemLink">Browse</span>
                 </div>
                 <div class="navItem">
-                    <a href="yourMusic.php" class="navItemLink">Your Music</a>
+                    <span role="link" tabindex="0" onclick="openPage('yourMusic.php')" class="navItemLink">Your Music</span>
                 </div>
                 <div class="navItem">
-                    <a href="profile.php" class="navItemLink">Bob Jones</a>
+                    <span role="link" tabindex="0" onclick="openPage('profile.php')"  class="navItemLink">Bob Jones</span>
                 </div>
 
             </div>

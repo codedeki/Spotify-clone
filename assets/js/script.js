@@ -6,7 +6,20 @@ var mouseDown = false;
 var currentIndex = 0;
 var repeat = false;
 var shuffle = false;
+var userLoggedIn;
 
+function openPage(url) {
+	//add question mark to url if doesn't have one to make sure we change pages dynamically
+	if (url.indexOf("?") == -1) {
+		url = url + "?";
+	}
+	
+	var encodedUrl = encodeURI(url + "&userLoggedIn=" + userLoggedIn);
+	$("#mainContent").load(encodedUrl);
+	$("body").scrollTop(0);
+	//changes url upon click to improve user experience (make them think the page changed)
+	history.pushState(null, null, url);
+}
 
 function formatTime(seconds) {
 	var time = Math.round(seconds);
@@ -31,6 +44,9 @@ function updateVolumeProgressBar(audio) {
 	$(".volumeBar .progress").css("width", volume + "%");
 }
 
+function playFirstSong() {
+	setTrack(tempPlaylist[0], tempPlaylist, true);
+}
 
 class Audio {
 	constructor() {

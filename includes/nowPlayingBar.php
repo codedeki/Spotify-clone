@@ -8,7 +8,7 @@ while ($row = mysqli_fetch_array($songQuery)) {
     array_push($resultArray, $row['id']);
 }
 
-$jsonArray = json_encode($resultArray); //conver php arary to json
+$jsonArray = json_encode($resultArray); //convert php arary to json
 
 ?>
 
@@ -92,7 +92,7 @@ function nextSong() {
     if (repeat) {
         audioElement.setTime(0); //sets time back to 0, repeating the smae song
         playSong();
-        return
+        return;
     } 
 
     if (currentIndex == currentPlaylist.length - 1) {
@@ -177,21 +177,24 @@ function setTrack(trackId, newPlaylist, play) {
             var artist = JSON.parse(data);
             console.log(artist);
             $(".artistName span").text(artist.name);
+            $(".artistName span").attr("onclick", "openPage('artist.php?id=" + artist.id + "')");
         });
         
         $.post("includes/handlers/ajax/getAlbumJSON.php", { albumId: track.album }, function(data) {
             var album = JSON.parse(data);
             console.log(album);
             $(".albumLink img").attr("src", album.artworkPath);
+            $(".albumLink img").attr("onclick", "openPage('album.php?id=" + album.id + "')");
+            $(".trackName span").attr("onclick", "openPage('album.php?id=" + album.id + "')");
         });
 
         audioElement.setTrack(track);
-        playSong();
+        
+        if (play == true) {
+           playSong();
+        }
     });
 
-    if (play == true) {
-       playSong();
-    }
 }
 
 function playSong() {
@@ -218,15 +221,15 @@ function pauseSong() {
         <div id="nowPlayingLeft">
             <div class="content">
                 <span class="albumLink">
-                    <img src="" class="albumArtwork" alt="Album">
+                    <img role="link" tabindex="0" src="" class="albumArtwork" alt="Album">
                 </span>
 
                 <div class="trackInfo">
                     <span class="trackName">
-                        <span></span>
+                        <span role="link" tabindex="0"></span>
                     </span>
                     <span class="artistName">
-                        <span></span>
+                        <span role="link" tabindex="0"></span>
                     </span>
                 </div>
             </div>
@@ -244,7 +247,7 @@ function pauseSong() {
                     <button class="controlButton play" title="Play button" onclick="playSong()">
                         <img src="assets/images/icons/play.png" alt="Play">
                     </button>
-                    <button class="controlButton pause" title="Pause button" style="display: none" onclick="pauseSong()">
+                    <button class="controlButton pause" title="Pause button" style="display: none;" onclick="pauseSong()">
                         <img src="assets/images/icons/pause.png" alt="Pause">
                     </button>
                     <button class="controlButton next" title="Next button" onclick="nextSong()">
