@@ -5,9 +5,9 @@ include("includes/includedFiles.php");
 if (isset($_GET['id'])) {
     $artistId = $_GET['id']; 
 } 
-// else {
-//     header("Location: index.php");
-// }
+else {
+    header("Location: index.php");
+}
 
 $artist = new Artist($con, $artistId);
 ?>
@@ -19,7 +19,7 @@ $artist = new Artist($con, $artistId);
             <h1 class="artistName"><?php echo $artist->getName(); ?></h1>
 
             <div class="headerButtons">
-                <button class="button green onclick='playFirstSong()'">PLAY</button>
+                <button class="button green" onclick="playFirstSong()">PLAY</button>
             </div>
         </div>
     </div>
@@ -44,7 +44,7 @@ $artist = new Artist($con, $artistId);
             
             echo "<li class='tracklistRow'>
                     <div class='trackCount'>
-                        <img class=''play src='assets/images/icons/play-white.png' onclick='setTrack(\"" . $albumSong->getId() . "\", tempPlaylist, true)'>
+                        <img class='play' src='assets/images/icons/play-white.png' onclick='setTrack(\"" . $albumSong->getId() . "\", tempPlaylist, true)'>
                         <span class='trackNumber'>$i</span>
                     </div>
 
@@ -69,9 +69,8 @@ $artist = new Artist($con, $artistId);
         ?>
         <!-- playing (and looping) songs on srtist page by clicking on play button(s) beside song title-->
         <script>
-            var tempSongsIds = '<?php echo json_encode($songIdArray); ?>';
-            tempPlaylist = JSON.parse(tempSongsIds);
-            console.log(tempPlaylist);
+            var tempSongIds = '<?php echo json_encode($songIdArray); ?>';
+            tempPlaylist = JSON.parse(tempSongIds);
         </script>
 
 
@@ -82,7 +81,7 @@ $artist = new Artist($con, $artistId);
     <h2>ALBUMS</h2>
     <?php 
         $albumQuery = mysqli_query($con, "SELECT * FROM albums WHERE artist='$artistId'");
-        while ($row = mysqli_fetch_array($albumQuery) ) {
+        while ($row = mysqli_fetch_array($albumQuery)) {
             
             
             echo "<div class='gridViewItem'>

@@ -2,25 +2,29 @@
 //store header & footer in includedFiles so that we don't load them more than once on every page change 
 
 if (isset($_GET['id'])) {
-    $albumId = $_GET['id'];
+    $playlistId = $_GET['id'];
 }
 else {
     header("Location: index.php");
 }
 
-$album = new Album($con, $albumId);
-$artist = $album->getArtist();
-$artistId = $artist->getId();
+$playlist = new Playlist($con, $playlistId);
+$owner = new User($con, $playlist->getOwner());
 ?>
 
 <div class="entityInfo">
+
     <div class="leftSection">
-        <img src="<?php echo $album->getArtworkPath();?>" alt="album cover">
+        <div class="playlistImage">
+            <img src="assets/images/icons/playlist.png">
+        </div>
     </div>
+
     <div class="rightSection">
-        <h2><?php echo $album->getTitle();?> </h2>
-        <p role="link" tabindex="0" onclick="openPage('artist.php?id=$artistId')">By <?php echo $artist->getName(); ?></p>
-        <p><?php echo $album->getNumberOfSongs(); ?> songs</p>
+        <h2><?php echo $playlist->getName();?> </h2>
+        <p>By <?php echo $playlist->getOwner(); ?></p>
+        <p><?php echo $playlist->getNumberOfSongs(); ?> songs</p>
+        <button class="button" onclick="deletePlaylist('<?php echo $playlistId; ?>')">DELETE PLAYLIST</button>
     </div>
 </div>
 
@@ -29,22 +33,22 @@ $artistId = $artist->getId();
     <ul class="tracklist">
         
         <?php 
-        $songIdArray = $album->getSongIds();
+        $songIdArray = $playlist->getSongIds();
         $i = 1;
         foreach($songIdArray as $songId) {
             
-            $albumSong = new Song($con, $songId);
-            $albumArtist = $albumSong->getArtist();
+            $playlistSong = new Song($con, $songId);
+            $songArtist = $playlistSong->getArtist();
             
             echo "<li class='tracklistRow'>
                     <div class='trackCount'>
-                        <img class='play' src='assets/images/icons/play-white.png' onclick='setTrack(\"" . $albumSong->getId() . "\", tempPlaylist, true)'>
+                        <img class=''play src='assets/images/icons/play-white.png' onclick='setTrack(\"" . $playlistSong->getId() . "\", tempPlaylist, true)'>
                         <span class='trackNumber'>$i</span>
                     </div>
 
                     <div class='trackInfo'>
-                        <span class='trackName'>" . $albumSong->getTitle() . "</span>
-                        <span class='artistName'>" . $albumArtist->getName() . "</span>
+                        <span class='trackName'>" . $playlistSong->getTitle() . "</span>
+                        <span class='artistName'>" . $songArtist->getName() . "</span>
                     </div>
 
                     <div class='trackOptions'>
@@ -52,7 +56,7 @@ $artistId = $artist->getId();
                     </div>
 
                     <div class='trackDuration'>
-                        <span class='duration'>" . $albumSong->getDuration() . "</span>
+                        <span class='duration'>" . $playlistSong->getDuration() . "</span>
                     </div>
                     
                 </li>";
@@ -61,10 +65,11 @@ $artistId = $artist->getId();
         }
       
         ?>
-        <!-- playing (and looping) songs on album page by clicking on play button(s) beside song title-->
+        <!-- playing (and looping) songs on playlist page by clicking on play button(s) beside song title-->
         <script>
             var tempSongIds = '<?php echo json_encode($songIdArray); ?>';
             tempPlaylist = JSON.parse(tempSongIds);
+            console.log(tempPlaylist);
         </script>
 
 
