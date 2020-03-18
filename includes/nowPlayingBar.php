@@ -175,14 +175,12 @@ function setTrack(trackId, newPlaylist, play) {
 
         $.post("includes/handlers/ajax/getArtistJSON.php", { artistId: track.artist }, function(data) {
             var artist = JSON.parse(data);
-            console.log(artist);
             $(".trackInfo .artistName span").text(artist.name);
             $(".trackInfo .artistName span").attr("onclick", "openPage('artist.php?id=" + artist.id + "')");
         });
         
         $.post("includes/handlers/ajax/getAlbumJSON.php", { albumId: track.album }, function(data) {
             var album = JSON.parse(data);
-            console.log(album);
             $(".content .albumLink img").attr("src", album.artworkPath);
             $(".content .albumLink img").attr("onclick", "openPage('album.php?id=" + album.id + "')");
             $(".trackInfo .trackName span").attr("onclick", "openPage('album.php?id=" + album.id + "')");

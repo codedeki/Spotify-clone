@@ -52,8 +52,9 @@ $owner = new User($con, $playlist->getOwner());
                     </div>
 
                     <div class='trackOptions'>
-                        <img class='optionsButton' src='assets/images/icons/more.png'>
-                    </div>
+                    <input type='hidden' class='songId' value='" . $playlistSong->getId() . "'>
+                    <img class='optionsButton' src='assets/images/icons/more.png' onclick='showOptionsMenu(this)'>
+                 </div>
 
                     <div class='trackDuration'>
                         <span class='duration'>" . $playlistSong->getDuration() . "</span>
@@ -69,9 +70,16 @@ $owner = new User($con, $playlist->getOwner());
         <script>
             var tempSongIds = '<?php echo json_encode($songIdArray); ?>';
             tempPlaylist = JSON.parse(tempSongIds);
-            console.log(tempPlaylist);
         </script>
 
 
     </ul>
 </div>
+
+<nav class="optionsMenu">
+    <!-- contains song currently selected in Add to Playlist -->
+    <input type="hidden" class="songId">
+    <?php echo PLaylist::getPlaylistsDropdown($con, $userLoggedIn->getUsername()); ?>
+    <div class="item" onclick="removeFromPlaylist(this, '<?php echo $playlistId; ?>')">Remove from Playlist</div>
+</nav>
+

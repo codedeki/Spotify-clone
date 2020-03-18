@@ -371,6 +371,43 @@ body {
     text-align: right;
 }
 
+/* Album - Add to Playlist page STYLES ------------------------------------------------------*/
+
+.optionsMenu {
+    position: fixed;
+    background-color: #282828;
+    width: 200px;
+    border: 1px solid rgb(0, 0, 0, 0.15);
+    border-radius: 3px;
+    z-index: 1000;
+    display: none;
+}
+
+.optionsMenu .item {
+    width: 100%;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    font-weight: 400;
+    color: rgb(147, 147, 147, 0.8);
+    cursor: pointer;
+    height: 45px;
+    background-color: #282828;
+    font-size: 14px;
+}
+
+.optionsMenu .item:hover {
+    color: #fff;
+    background-color: #333;
+    border-color: #444;
+}
+
+.optionsMenu select {
+    border: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+
 /* Artist page Song List STYLES ------------------------------------------------------*/
 
 .artistInfo {
@@ -420,6 +457,7 @@ body {
 .searchContainer h4 {
     margin: 0;
     font-weight: 300;
+    padding-bottom: 15px;
 }
 
 .searchContainer .searchInput {
@@ -452,6 +490,7 @@ input:focus {
     margin: 15px;
     display: block;
 }
+
 
 /* Your Music page STYLES ------------------------------------------------------*/
 
