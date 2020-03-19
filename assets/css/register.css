@@ -33,24 +33,28 @@ body {
 
 ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
     color:    #fff;
+    opacity:  0.5;
 }
 :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
    color:    #fff;
-   opacity:  1;
+   opacity:  0.5;
 }
 ::-moz-placeholder { /* Mozilla Firefox 19+ */
    color:    #fff;
-   opacity:  1;
+   opacity:  0.5;
 }
 :-ms-input-placeholder { /* Internet Explorer 10-11 */
    color:    #fff;
+   opacity:  0.5;
 }
 ::-ms-input-placeholder { /* Microsoft Edge */
    color:    #fff;
+   opacity:  0.5;
 }
 
 ::placeholder { /* Most modern browsers support this now. */
    color:    #fff;
+   opacity:  0.5;
 }
 
 #inputContainer {

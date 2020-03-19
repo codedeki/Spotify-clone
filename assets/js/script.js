@@ -24,7 +24,7 @@ $(window).scroll(function() {
 });
 
 $(document).on("change", "select.playlist", function() {
-	var select= $(this);
+	var select = $(this);
 	//select.playlist class from Playlist::getPlaylistsDropdown
 	var playlistId = $(select).val();
 	var songId = $(select).prev(".songId").val();
@@ -59,6 +59,33 @@ function openPage(url) {
 	history.pushState(null, null, url);
 }
 
+function updateEmail(emailClass) {
+	var emailValue = $("." + emailClass).val();
+
+	$.post("includes/handlers/ajax/updateEmail.php", { email:emailValue, username: userLoggedIn })
+	.done(function(response) {
+		$("." + emailClass).nextAll(".message").text(response);
+	});
+}
+
+function updatePassword(oldPasswordClass, newPasswordClass1, newPasswordClass2) {
+	var oldPassword = $("." + oldPasswordClass).val();
+	var newPassword1 = $("." + newPasswordClass1).val();
+	var newPassword2 = $("." + newPasswordClass2).val();2
+
+	$.post("includes/handlers/ajax/updatePassword.php", 
+	{ oldPassword: oldPassword, newPassword1: newPassword1, newPassword2: newPassword2, username: userLoggedIn})
+	.done(function(response) {
+		$("." + oldPasswordClass).nextAll(".message").text(response);
+	});
+}
+
+function logout() {
+	$.post("includes/handlers/ajax/logout.php", function() {
+		location.reload();
+	});
+}
+
 function removeFromPlaylist(button, playlistId) {
 	var songId = $(button).prevAll(".songId").val();
 
@@ -75,7 +102,7 @@ function removeFromPlaylist(button, playlistId) {
 
 }	
 
-function createPlaylist(username) {
+function createPlaylist() {
 	var popup = prompt("Please enter the name of your playlist");
 
 	if (popup != null) {
