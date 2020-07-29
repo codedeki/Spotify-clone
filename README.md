@@ -2,7 +2,7 @@
 _built solely with PHP, HTML, CSS & JavaScript_  
 
 ### Using Scalable Technologies including: 
-* PHP Data Objects (PDO) PHP 5.1+
+* Native MySQLi Extension Driver
 * Maria DB (MySQL)
 * Vanilla JS & JQuery
 * Native PHP
